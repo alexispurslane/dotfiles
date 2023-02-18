@@ -7,4 +7,4 @@ killall -q polybar
 while pgrep -x polybar >/dev/null; do sleep 1; done
 
 # Launch polybar
-~/.config/polybar/launch.sh --hack
+~/.config/polybar/launch.sh --panels gnome
