@@ -6,10 +6,6 @@ syntax on
 " For plugins to load correctly
 filetype plugin indent on
 
-call plug#begin()
-Plug 'gmarmstrong/vim-muse'
-call plug#end()
-
 let mapleader = "\<Space>"
 
 " Security
