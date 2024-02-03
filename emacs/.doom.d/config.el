@@ -7,7 +7,7 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets. It is optional.
 (setq user-full-name "Alexis Purslane"
-      user-mail-address "alexispurslane@pm.me")
+    user-mail-address "alexispurslane@pm.me")
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom:
 ;;
@@ -32,8 +32,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-font "JetBrains Mono"
-    doom-variable-pitch-font "Fira Sans-12")
+(setq doom-font "JetBrains Mono-13"
+    doom-variable-pitch-font "Cantarell-12")
 (setq doom-theme 'doom-1337)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
@@ -85,13 +85,16 @@
 (setq-default rustic-lsp-server 'rust-analyzer)
 (setq-default lisp-indent-offset 4)
 
+(map! :map rustic-mode-map
+    :leader (:prefix ))
+
 (after! centaur-tabs
     (setq centaur-tabs-style "bar")
     (setq centaur-tabs-height 48)
     (setq centaur-tabs-gray-out-icons 'buffer)
     (setq centaur-tabs-set-bar 'over)
     (setq centaur-tabs-set-modified-marker t)
-    (centaur-tabs-change-fonts "Fira Sans" 120)
+    (centaur-tabs-change-fonts "Cantarell" 120)
     (setq centaur-tabs-cycle-scope 'tabs)
     (setq centaur-tabs-label-fixed-length 18)
     (centaur-tabs-group-by-projectile-project))
@@ -105,28 +108,99 @@
 (define-key evil-insert-state-map (kbd "C-y") 'evil-redo)
 (setq cua-keep-region-after-copy t)
 
-(map! :map paredit-mode-map
-    :leader (:prefix ("l" . "lisp")
-                :nvie "p" #'paredit-forward-slurp-sexp
-                :nvie "b" #'paredit-forward-barf-sexp
-                :nvie "P" #'paredit-backward-slurp-sexp
-                :nvie "B" #'paredit-backward-barf-sexp
-                :nvie "S" #'paredit-split-sexp
-                :nvie "J" #'paredit-join-sexp
-                :nvie "d" #'paredit-forward-down
-                :nvie "u" #'paredit-backward-up
-                :nie "k" #'paredit-kill
-                :nie "s" #'paredit-splice-sexp
-                :nie "(" #'paredit-wrap-round
-                :nie "[" #'paredit-wrap-square
-                :nie "{" #'paredit-wrap-curly))
+(map!
+    :after paredit-mode
+    :map paredit-mode-map
+    :localleader
+    "p" #'paredit-forward-slurp-sexp
+    "b" #'paredit-forward-barf-sexp
+    "P" #'paredit-backward-slurp-sexp
+    "B" #'paredit-backward-barf-sexp
+    "S" #'paredit-split-sexp
+    "J" #'paredit-join-sexp
+    "d" #'paredit-forward-down
+    "u" #'paredit-backward-up
+    "k" #'paredit-kill
+    "s" #'paredit-splice-sexp
+    "(" #'paredit-wrap-round
+    "[" #'paredit-wrap-square
+    "{" #'paredit-wrap-curly)
 
 (add-hook! 'lisp-mode-hook #'enable-paredit-mode)
 (add-hook! 'emacs-lisp-mode-hook #'enable-paredit-mode)
 
-(set-face-attribute 'mode-line nil :font "Fira Sans-12")
+(set-face-attribute 'mode-line nil :font "Cantarell-12")
 
 (after! treemacs
     (setq doom-themes-treemacs-enable-variable-pitch t))
 (setq doom-modeline-major-mode-icon t)
 (setq doom-modeline-height 33)
+(add-hook 'markdown-mode-hook #'auto-fill-mode)
+
+(setq lsp-headerline-breadcrumb-enable t)
+(setq lsp-ui-doc-enable t)
+(setq lsp-ui-doc-show-with-cursor t)
+(setq lsp-ui-doc-show-with-mouse t)
+(setq lsp-signature-render-documentation nil)
+
+(add-to-list 'load-path "~/.emacs.d/vendor/inform7-mode/")
+(autoload 'inform7-mode "inform7"   "Major mode for editing inform 7 story files." t)
+(add-to-list 'auto-mode-alist '("\\.ni" . inform7-mode))
+
+(add-to-list 'load-path "~/.emacs.d/vendor/tads3-mode/")
+(autoload 'tads3-mode "tads3" "TADS 3 editing mode." t)
+(add-to-list 'auto-mode-alist '("\\.t$" . tads3-mode))
+(add-hook 'tads3-mode-hook '+word-wrap-mode)
+(setq-default tads3-interpreter "~/.local/bin/qtads")
+
+(map! :after tads3-mode
+    :map tads3-mode-map
+    :localleader
+    "b" #'tads3-build
+    "r" #'tads3-run)
+
+(pixel-scroll-precision-mode)
+
+(setq-default TeX-engine 'xetex)
+(setq-default pdf-latex-command "xelatex")
+
+(add-to-list 'auto-mode-alist '("\\.comp" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.tesc" . glsl-mode))
+
+(eval-after-load 'autoinsert
+    '(define-auto-insert
+         '("\\.rs\\'" . "Rust source file license statement")
+         '("Short description: Adds the MPL-2.0 license statement."
+              "/*" \n
+              " * Copyright (C) " (format-time-string "%Y") " " user-full-name " <" user-mail-address ">" \n
+              " *" \n
+              " * This Source Code Form is subject to the terms of the Mozilla Public" \n
+              " * License, v. 2.0. If a copy of the MPL was not distributed with this" \n
+              " * file, You can obtain one at http://mozilla.org/MPL/2.0/." \n
+              " */" > \n \n
+              > _ \n)))
+
+(let ((opam-share (ignore-errors (car (process-lines "opam" "var" "share")))))
+    (when (and opam-share (file-directory-p opam-share))
+        ;; Register Merlin
+        (add-to-list 'load-path (expand-file-name "emacs/site-lisp" opam-share))
+        (autoload 'merlin-mode "merlin" nil t nil)
+        ;; Automatically start it in OCaml buffers
+        (add-hook 'tuareg-mode-hook 'merlin-mode t)
+        (add-hook 'caml-mode-hook 'merlin-mode t)
+        ;; Use opam switch to lookup ocamlmerlin binary
+        (setq merlin-command 'opam)
+        ;; To easily change opam switches within a given Emacs session, you can
+        ;; install the minor mode https://github.com/ProofGeneral/opam-switch-mode
+        ;; and use one of its "OPSW" menus.
+        ))
+
+(add-hook 'before-save-hook 'tide-format-before-save)
+(add-hook 'markdown-mode-hook (lambda ()
+                                  (setq fill-column 62)
+                                  (visual-fill-column-mode 1)
+                                  (writeroom-mode 1)
+                                  (display-line-numbers-mode -1)
+                                  (hl-line-mode -1)
+                                  (face-remap-add-relative 'default '(:family "iA Writer Duo V" :height 180)))
+(add-hook 'typescript-mode-hook (lambda () (setq typescript-indent-level 4)))
