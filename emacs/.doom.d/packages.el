@@ -53,5 +53,6 @@
 (package! paredit)
 (package! evil-numbers)
 (package! prettier)
+
 (package! writeroom-mode)
-(package! load-theme-buffer-local)
+(package! focus)

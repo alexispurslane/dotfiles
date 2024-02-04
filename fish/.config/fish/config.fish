@@ -18,16 +18,3 @@ set -g theme_powerline_fonts no
 # opam configuration
 source /home/alexispurslane/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-if test -f /home/alexispurslane/miniconda3/bin/conda
-    eval /home/alexispurslane/miniconda3/bin/conda "shell.fish" "hook" $argv | source
-else
-    if test -f "/home/alexispurslane/miniconda3/etc/fish/conf.d/conda.fish"
-        . "/home/alexispurslane/miniconda3/etc/fish/conf.d/conda.fish"
-    else
-        set -x PATH "/home/alexispurslane/miniconda3/bin" $PATH
-    end
-end
-# <<< conda initialize <<<
-

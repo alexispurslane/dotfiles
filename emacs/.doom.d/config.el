@@ -143,11 +143,7 @@
 (setq lsp-ui-doc-show-with-mouse t)
 (setq lsp-signature-render-documentation nil)
 
-(add-to-list 'load-path "~/.emacs.d/vendor/inform7-mode/")
-(autoload 'inform7-mode "inform7"   "Major mode for editing inform 7 story files." t)
-(add-to-list 'auto-mode-alist '("\\.ni" . inform7-mode))
-
-(add-to-list 'load-path "~/.emacs.d/vendor/tads3-mode/")
+(add-to-list 'load-path "~/.emacs.d/load/tads3-mode/")
 (autoload 'tads3-mode "tads3" "TADS 3 editing mode." t)
 (add-to-list 'auto-mode-alist '("\\.t$" . tads3-mode))
 (add-hook 'tads3-mode-hook '+word-wrap-mode)
@@ -197,12 +193,14 @@
 
 (add-hook 'before-save-hook 'tide-format-before-save)
 (add-hook 'markdown-mode-hook (lambda ()
-                                  (setq fill-column 62)
+                                  (setq fill-column 65)
                                   (visual-fill-column-mode 1)
                                   (writeroom-mode 1)
                                   (display-line-numbers-mode -1)
                                   (hl-line-mode -1)
-                                  (face-remap-add-relative 'default '(:family "iA Writer Duo V" :height 180))))
+                                  (turn-off-auto-fill)
+                                  (focus-mode 1)
+                                  (face-remap-add-relative 'default '(:family "iA Writer Duo V" :height 170))))
 (add-hook 'typescript-mode-hook (lambda () (setq typescript-indent-level 4)))
 
 (setq shell-file-name (executable-find "bash"))
