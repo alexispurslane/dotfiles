@@ -32,7 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-font "JetBrains Mono-13"
+(setq doom-font "JetBrains Mono-12"
     doom-variable-pitch-font "Cantarell-12")
 (setq doom-theme 'doom-1337)
 
