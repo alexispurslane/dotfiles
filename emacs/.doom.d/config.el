@@ -202,5 +202,7 @@
                                   (writeroom-mode 1)
                                   (display-line-numbers-mode -1)
                                   (hl-line-mode -1)
-                                  (face-remap-add-relative 'default '(:family "iA Writer Duo V" :height 180)))
+                                  (face-remap-add-relative 'default '(:family "iA Writer Duo V" :height 180))))
 (add-hook 'typescript-mode-hook (lambda () (setq typescript-indent-level 4)))
+
+(setq shell-file-name (executable-find "bash"))
