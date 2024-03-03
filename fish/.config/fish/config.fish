@@ -12,9 +12,14 @@ abbr -a -g gp git push
 abbr -a -g gP git push --force
 abbr -a -g zi zypper in 
 abbr -a -g zu zypper dup
+alias cat bat
+alias ls "lsd --group-dirs=first --hyperlink auto "
+alias btrfs "distrobox-host-exec btrfs"
+alias podman "distrobox-host-exec podman"
+alias rpm-ostree "distrobox-host-exec rpm-ostree"
 
 set -g theme_powerline_fonts no
 
 # opam configuration
-source /home/alexispurslane/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
+source /var/home/alexispurslane/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
 

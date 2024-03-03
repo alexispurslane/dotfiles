@@ -7,7 +7,9 @@ com.google.AndroidStudio/x86_64/stable
 com.mattjakeman.ExtensionManager/x86_64/stable
 com.nextcloud.desktopclient.nextcloud/x86_64/stable
 com.valvesoftware.Steam/x86_64/stable
+io.github.garglk.Gargoyle/x86_64/stable
 io.gitlab.librewolf-community/x86_64/stable
+org.blender.Blender/x86_64/stable
 org.fedoraproject.MediaWriter/x86_64/stable
 org.gimp.GIMP/x86_64/stable
 org.gnome.Calculator/x86_64/stable

@@ -78,7 +78,7 @@
 ;; they are implemented.
 
 (setq rustic-analyzer-command '("~/.cargo/bin/rust-analyzer"))
-(setq projectile-project-search-path '("~/build/" ("~/Documents" . 3)))
+(setq projectile-project-search-path '("~/Development/"))
 (setq org-agenda-files '("~/org/agenda/"))
 
 (setq-default lsp-rust-server 'rust-analyzer)
