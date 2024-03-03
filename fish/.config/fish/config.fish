@@ -14,9 +14,6 @@ abbr -a -g zi zypper in
 abbr -a -g zu zypper dup
 alias cat bat
 alias ls "lsd --group-dirs=first --hyperlink auto "
-alias btrfs "distrobox-host-exec btrfs"
-alias podman "distrobox-host-exec podman"
-alias rpm-ostree "distrobox-host-exec rpm-ostree"
 
 set -g theme_powerline_fonts no
 
