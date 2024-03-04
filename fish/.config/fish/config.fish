@@ -13,7 +13,8 @@ abbr -a -g gP git push --force
 abbr -a -g zi zypper in 
 abbr -a -g zu zypper dup
 alias cat bat
-alias ls "lsd --group-dirs=first --hyperlink auto "
+alias ls lsd
+alias edit "$EDITOR"
 
 set -g theme_powerline_fonts no
 
